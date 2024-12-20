@@ -31,7 +31,7 @@ const Home = () => {
     API.get("/clientes").then((res) => setClientes(res.data));
   };
 
-  const onSubmit = (values: Cliente) => {
+  const onSubmit = (values: any) => {
     const { id, activo, ...rest } = values;
     API({
       method: editar ? "PUT" : "POST",
@@ -63,7 +63,9 @@ const Home = () => {
     setShow(true);
   };
 
-  const handleEliminar = (id: number) => {
+  const handleEliminar = (id: number | undefined) => {
+
+    if (!id) return alert("No hay id")
     Swal.fire({
       title: "Eliminar cliente",
       text: "Esta seguro? esto no se puede deshacer",
@@ -98,7 +100,7 @@ const Home = () => {
                 {cliente.nombre} {cliente.apellidos}
               </Card.Title>
               <Card.Text>{cliente.email}</Card.Text>
-              <Card.Text>{cliente.fecha_nacimiento ?? ""}</Card.Text>
+              {/* <Card.Text>{}</Card.Text> */}
             </Card.Body>
             <Card.Footer>
               <Button onClick={() => handleEditar(cliente)}>Editar</Button>
